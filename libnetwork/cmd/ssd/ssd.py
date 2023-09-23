@@ -139,10 +139,7 @@ if __name__ == '__main__':
         sys.exit()
 
     cli = docker.APIClient(base_url='unix://var/run/docker.sock', version='auto')
-    if len(sys.argv) == 3:
-        command = sys.argv[2]
-    else:
-        command = 'default'
+    command = sys.argv[2] if len(sys.argv) == 3 else 'default'
 
     if command == 'gossip-consistency':
         cspec = docker.types.ContainerSpec(

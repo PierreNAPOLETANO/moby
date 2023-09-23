@@ -79,11 +79,7 @@ type sequence struct {
 // String returns a string representation of the block sequence starting from this block
 func (s *sequence) toString() string {
 	var nextBlock string
-	if s.next == nil {
-		nextBlock = "end"
-	} else {
-		nextBlock = s.next.toString()
-	}
+	nextBlock = s.next == nil ? "end" : s.next.toString()
 	return fmt.Sprintf("(0x%x, %d)->%s", s.block, s.count, nextBlock)
 }
 
@@ -125,10 +121,7 @@ func (s *sequence) equal(o *sequence) bool {
 	this := s
 	other := o
 	for this != nil {
-		if other == nil {
-			return false
-		}
-		if this.block != other.block || this.count != other.count {
+		if other == nil || this.block != other.block || this.count != other.count {
 			return false
 		}
 		this = this.next
